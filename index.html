@@ -18,7 +18,7 @@
   </head>
 
 <body>
-<h3>１自由度粘弾性振動系</h3>
+<h3>１自由度粘弾性振動系  伝達率と位相遅れ</h3>
 <p><a href="https://aoyamakohbo.github.io/VscElsVib1D/">１自由度粘弾性振動系</a>
 の入力\(u(t) = U\sin\omega t\)として振動方程式を次式とします。</p>
 \begin{align}
@@ -71,7 +71,17 @@ X\sqrt{p^2+q^2} = bU,~~~\gamma - \phi = 0. \label{eq:Trans1}
 \frac{X}{U} = \frac{b}{\sqrt{(b-\omega^2)^2+(a\omega)^2}},~~~\tan \phi = \frac{a\omega}{b-\omega^2}. \label{eq:Trans2}
 \end{align}
 
-<p>式\eqref{eq:Trans2}は１自由度粘弾性振動系\eqref{eq:VivEq}の伝達関数と呼ばれます。</p>
+<img src="Vib1D.jpg" width=600px>
+
+<p><a href="https://aoyamakohbo.github.io/NmaVib1D/">数値計算例</a>で示したように、
+\(f=1\)[Hz]では伝達率はほぼ1倍であり、位相遅れもほとんど0[rad]です。
+\(f=10\)[Hz]では伝達率は約2.5倍であり、位相遅は約1.5(\(\fallingdotseq \pi/2\))[rad]となり、
+共振に近い状況であることを示しています。
+\(f=20\)[Hz]では伝達率は約0.25倍、位相遅は約2.9(\(\fallingdotseq \pi\))[rad]となり、
+位相が反転する状況に近いことを示しています。
+</p>
+<p>振動方程式を離散時間状態方程式に変換して数値計算で得られる結果と、
+振動方程式を三角関数を使って解析して得られる結果が一致することが確認できます。</p>
 
 <p><a href="https://aoyamakohbo.github.io/Craftlogy/">->TOP</a></p>
 </body>
