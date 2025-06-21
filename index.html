@@ -18,70 +18,75 @@
   </head>
 
 <body>
-<h3>１自由度粘弾性振動系  伝達率と位相遅れ</h3>
+<h3>１自由度粘弾性振動系(離散時間状態方程式による数値計算例)</h3>
 <p><a href="https://aoyamakohbo.github.io/VscElsVib1D/">１自由度粘弾性振動系</a>
-の入力\(u(t) = U\sin\omega t\)として振動方程式を次式とします。</p>
+の振動(運動)方程式は次式となります。</p>
 \begin{align}
-\ddot x + a \dot x + b x = bU\sin\omega t,~~~y=x. \label{eq:VivEq}
+\ddot x + 2\zeta \omega_n\dot x + \omega_n^2x = f,~~~y=x. \label{eq:VivEq}
+\end{align}
+<p>ここに、\(m\)は質量、\(\zeta\)は粘性係数、\(\omega_n^2\)は弾性係数です。</p>
+<p>１自由度粘弾性振動系\eqref{eq:VivEq}において、サンプリング周期\(T=0.005\)[s]、
+  \(\omega_n=6.28×10\)[rad/s]、\(\zeta=0.2\)
+  の離散時間状態方程式は次式で記述されます。</p>
+ \begin{align}
+\left[
+\begin{array}{@{\,}l}
+x(n+1)\\
+\dot x(n+1)
+\end{array}
+\right]
+=
+\left[
+\begin{array}{@{\,}cc}
+0.9531&0.004222\\
+-18.23&0.8370
+\end{array}
+\right]\left[
+\begin{array}{@{\,}l}
+x(n)\\
+\dot x(n)
+\end{array}
+\right]
++
+\left[
+\begin{array}{@{\,}c}
+-0.04691\\
+18.23
+\end{array}
+\right]u(n),~~~
+y(n)=[1~~0]
+\left[
+\begin{array}{@{\,}l}
+x(n)\\
+\dot x(n)
+\end{array}
+\right].
 \end{align}
 
-<p>応答\(x\)の振幅は増減し、位相遅れが生じることを想定して、応答\(x\)を次式とします。</p>
+<p>初期値\(x(0)=0\)、\(\dot x(0)=0\)とし、入力\(\)を次式の正弦振動で与えます。</p>
 \begin{align}
-x(t) = X\sin(\omega t - \phi) \label{eq:Xeqt}
+u(n) = \sin(2\pi nfT)\label{eq:SineInp}
 \end{align}
 
-<p>\(\dot x\)、\(\ddot x\)は次式となります。</p>
-\begin{align}
-\dot x(t) &=~ \omega X\cos(\omega t - \phi) \label{eq:Xdot}\\
-\ddot x(t) &=~ -\omega^2 X\sin(\omega t - \phi) \label{eq:Xddot}
-\end{align}
-
-<p>式\eqref{eq:Xeqt}、\eqref{eq:Xdot}、\eqref{eq:Xddot}を式\eqref{eq:VivEq}に代入して、整理します。</p>
-\begin{align}
-(b-\omega^2) X\sin(\omega t - \phi) + a\omega X\cos(\omega t - \phi) = bU\sin\omega t\label{eq:VibEq2}
-\end{align}
-
-<p>\(p=b-\omega^2\)、\(q=a\omega\)として式\eqref{eq:VibEq2}を次式のように変形します。</p>
-\begin{align}
-X\sqrt{p^2+q^2}\{\frac{p}{\sqrt{p^2+q^2}}\sin(\omega t - \phi) + \frac{q}{\sqrt{p^2+q^2}}\cos(\omega t - \phi)\} = bU\sin\omega t\label{eq:VibEq3}
-\end{align}
-
-<p>ここで、</p>
-\begin{align}
-\cos \gamma = \frac{p}{\sqrt{p^2+q^2}},~~~\sin \gamma = \frac{q}{\sqrt{p^2+q^2}} \label{eq:FormPQ}
-\end{align}
-
-<p>としますと、式\eqref{eq:VibEq3}は次式となります。</p>
-\begin{align}
-X\sqrt{p^2+q^2}\{\cos \gamma\sin(\omega t - \phi) + \sin \gamma \cos(\omega t - \phi)\} = bU\sin\omega t\label{eq:VibEq4}
-\end{align}
-
-<p>式\eqref{eq:VibEq4}に三角関数の加法定理を適用します。</p>
-\begin{align}
-X\sqrt{p^2+q^2}\sin(\omega t + \gamma- \phi) = bU\sin\omega t\label{eq:VibEq5}
-\end{align}
-
-<p>式\eqref{eq:VibEq5}の両辺を比較して、次式が得られます。</p>
-\begin{align}
-X\sqrt{p^2+q^2} = bU,~~~\gamma - \phi = 0. \label{eq:Trans1}
-\end{align}
-
-<p>式\eqref{eq:Trans1}に\(p=b-\omega^2\)、\(q=a\omega\)を代入し、\(\phi=\gamma\)、\(\tan\gamma=q/p\)を考慮して整理すると次式が得られます。</p>
-\begin{align}
-\frac{X}{U} = \frac{b}{\sqrt{(b-\omega^2)^2+(a\omega)^2}},~~~\tan \phi = \frac{a\omega}{b-\omega^2}. \label{eq:Trans2}
-\end{align}
-
-<img src="Vib1D.jpg" width=600px>
-
-<p><a href="https://aoyamakohbo.github.io/NmaVib1D/">数値計算例</a>で示したように、
-\(f=1\)[Hz]では伝達率はほぼ1倍であり、位相遅れもほとんど0[rad]です。
-\(f=10\)[Hz]では伝達率は約2.5倍であり、位相遅は約1.5(\(\fallingdotseq \pi/2\))[rad]となり、
-共振に近い状況であることを示しています。
-\(f=20\)[Hz]では伝達率は約0.25倍、位相遅は約2.9(\(\fallingdotseq \pi\))[rad]となり、
-位相が反転する状況に近いことを示しています。
+<p>入力正弦波\eqref{eq:SineInp}の振幅は\(1\)[mm]、振動数は\(f\)[Hz]です。
+  振動数\(f=1,10,20\)[Hz]の入力\(u(n)\)に対する応答出力\(y(n)\)を下図に掲示します。
 </p>
-<p>振動方程式を離散時間状態方程式に変換して数値計算で得られる結果と、
-振動方程式を三角関数を使って解析して得られる結果が一致することが確認できます。</p>
+<p>これらの図では入力\(u(n)\)は青線、出力\(y(n)\)を赤線で示しています。</p>
+<img src="Vib1DEG.jpg" width=600px>
+
+<p>入力正弦波の振動数\(f = 1\)[Hz]の場合、入力\(u(n)\)と出力\(y(n)\)はほとんど一致しています。
+  したがって、応答\(x(n)\)の振幅は\(1\)[mm]となり、振幅の倍率\(=1\)です。</p>
+
+<p>入力正弦波の振動数\(f = 10\)[Hz]の場合、入力\(u(n)\)の振幅に対して出力\(y(n)\)の振幅が約2.5倍に増加しています。
+  これは入力振動の角振動数\(2\pi f\)が１自由度粘弾性振動系の固有振動数\(\omega_n = 2\pi ×10\)と一致し、
+  共振が発生していることを示しています。また、入力振動に対して応答振動の時間遅れが発生しています。
+  これを位相遅れといいます。位相は１周期\(T\)を１回転として、
+  時間遅れ\(\tau\)を角度\(2\pi(\tau/T)\)で表現します。
+</p>
+
+<p>入力正弦波の振動数\(f = 20\)[Hz]の場合、入力\(u(n)\)の振幅に対して出力\(y(n)\)の振幅が約0.25倍に減少しています。
+  一方、位相遅れは増加し、入力振動と応答振動がほぼ交互に発生していることにも注目です。
+</p>
 
 <p><a href="https://aoyamakohbo.github.io/Craftlogy/">->TOP</a></p>
 </body>
